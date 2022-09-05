@@ -4,7 +4,7 @@ import folium
 
 def get_info_from_ip(ip='INSERT IP ADDRESS'):
     try:
-        response = requests.get(url="http://ip-api.com/json/{ip}").json()
+        response = requests.get(url=f'http://ip-api.com/json/{ip}').json()
         #print(response)
         data = {
             '[IP]': response.get('query'),
@@ -14,6 +14,9 @@ def get_info_from_ip(ip='INSERT IP ADDRESS'):
             '[Region Name]': response.get('regionName'),
             '[City]': response.get('city'),
             '[ZIP Code]': response.get('zip'),
+            '[Lat]': response.get('lat'),
+            '[Lon]': response.get('lon'),
+
         }
         for k,v in data.items():
             print(f'{k}:{v}')
@@ -25,7 +28,8 @@ def get_info_from_ip(ip='INSERT IP ADDRESS'):
     except requests.exceptions.ConnectionError:
         print('')
 def main():
-
+    preview_text = Figlet(font='slant')
+    print(preview_text.renderText('IP Info'))
     ip = input('IP: ')
     get_info_from_ip(ip=ip)
 if __name__ == '__main__':
